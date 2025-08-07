@@ -6,9 +6,10 @@ AUTHOR			:=		jowagner
 NAME			:= 		philo
 
 CC				:= 		cc -pthread
-CFLAGS			:= 		-Wall -Wextra -Werror -MD -MP -Iinc/ -g3
+CFLAGS			:= 		-Wall -Wextra -Werror -MD -MP -Iinc/ -g3 -pthread
 
-SRC				:=		src/main.c
+SRC				:=		src/main.c \
+						src/parsing.c
 
 ########################################################################################################################
 #                                                      DIRECTORY                                                       #
