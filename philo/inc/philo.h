@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 18:32:20 by jowagner          #+#    #+#             */
-/*   Updated: 2025/08/18 16:06:44 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/08/18 16:43:48 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,13 @@
 # define PHILO_H
 
 # include "philo_struct.h"
+
+//- Initialization -//
+
+//--- --- --- --- ---//
+
+/*Parsing*/
+bool		parsing(int ac, char **av);
+//--- --- --- --- ---//
 
 #endif

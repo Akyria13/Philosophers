@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 18:32:54 by jowagner          #+#    #+#             */
-/*   Updated: 2025/08/18 16:04:14 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/08/18 16:44:01 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ int	main(int ac, char **av)
 		printf("The number of arguments must be :\n- Number of philosophers\n"
 			"- Time to die\n- Time to eat\n- Time to sleep\n"
 			"- (optionnal) Number of meals");
+		return (1);
+	}
+	if (!parsing(ac, av))
+	{
+		printf("Arguments are incorrect.");
 		return (1);
 	}
 	return (0);
