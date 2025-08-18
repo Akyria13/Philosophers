@@ -6,16 +6,17 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 19:07:46 by jowagner          #+#    #+#             */
-/*   Updated: 2025/08/18 16:01:39 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/08/18 18:31:51 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_STRUCT_H
 # define PHILO_STRUCT_H
 
-# include <pthread.h>
-# include <stdbool.h>
 # include <stdio.h>
+# include <stdbool.h>
+# include <pthread.h>
+# include <limits.h>
 # include <sys/time.h>
 
 # define PHILO_MAX 200
@@ -37,6 +38,8 @@ typedef struct s_philo
 	bool			is_alive;
 	bool			is_eating;
 	bool			is_thinking;
+
+	pthread_t		thread;
 }				t_philo;
 
 typedef struct s_data
@@ -46,16 +49,15 @@ typedef struct s_data
 	t_fork			*fork;
 
 	int				nbr_philo;
-	int				number_of_meal;
+	int				nbr_meal;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				time_to_think;
 
+	pthread_mutex_t	lock_meal;
 	pthread_mutex_t	lock_die;
 	pthread_mutex_t	lock_eat;
-	pthread_mutex_t	lock_sleep;
-	pthread_mutex_t	lock_think;
 }				t_data;
 
 #endif

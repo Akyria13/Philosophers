@@ -8,7 +8,8 @@ NAME			:= 		philo
 CC				:= 		cc
 CFLAGS			:= 		-Wall -Wextra -Werror -MD -MP -Iinc/ -g3 -pthread
 
-SRC				:=		src/main.c \
+SRC				:=		src/initialization.c \
+						src/main.c \
 						src/parsing.c
 
 ########################################################################################################################
