@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 19:07:46 by jowagner          #+#    #+#             */
-/*   Updated: 2025/08/07 18:59:50 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/08/18 16:01:39 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@
 
 # define PHILO_MAX 200
 
-typedef struct	s_fork
+typedef struct s_fork
 {
 	int				id;
 	pthread_mutex_t	mutex;
 }				t_fork;
 
-typedef	struct	s_philo
+typedef struct s_philo
 {
 	t_fork			*fork_left;
 	t_fork			*fork_right;
@@ -39,7 +39,7 @@ typedef	struct	s_philo
 	bool			is_thinking;
 }				t_philo;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	t_philo			*philo;
 

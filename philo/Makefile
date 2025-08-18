@@ -5,7 +5,7 @@
 AUTHOR			:=		jowagner
 NAME			:= 		philo
 
-CC				:= 		cc -pthread
+CC				:= 		cc
 CFLAGS			:= 		-Wall -Wextra -Werror -MD -MP -Iinc/ -g3 -pthread
 
 SRC				:=		src/main.c \
