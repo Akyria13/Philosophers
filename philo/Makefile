@@ -10,7 +10,8 @@ CFLAGS			:= 		-Wall -Wextra -Werror -MD -MP -Iinc/ -g3 -pthread
 
 SRC				:=		src/initialization.c \
 						src/main.c \
-						src/parsing.c
+						src/parsing.c \
+						src/utils.c
 
 ########################################################################################################################
 #                                                      DIRECTORY                                                       #

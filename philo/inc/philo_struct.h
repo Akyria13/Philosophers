@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 19:07:46 by jowagner          #+#    #+#             */
-/*   Updated: 2025/08/18 18:31:51 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/08/21 15:22:09 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <pthread.h>
 # include <limits.h>
 # include <sys/time.h>
+# include <stdlib.h>
 
 # define PHILO_MAX 200
 

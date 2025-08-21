@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 18:32:20 by jowagner          #+#    #+#             */
-/*   Updated: 2025/08/18 18:42:53 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/08/21 14:37:14 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ bool		init_struct(t_data *data, char **av);
 /*Parsing*/
 int			str_to_int(char *str);
 bool		parsing(int ac, char **av);
+//--- --- --- --- ---//
+
+/*Utils*/
+int			ft_atoi(char *str);
 //--- --- --- --- ---//
 
 #endif
