@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 19:07:46 by jowagner          #+#    #+#             */
-/*   Updated: 2025/08/21 15:59:33 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/08/24 18:04:12 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ typedef struct s_philo
 	t_fork			*fork_left;
 	t_fork			*fork_right;
 
-	int				id;
+	int				*id;
 	int				last_meal;
 
 	bool			is_alive;
 	bool			is_eating;
 	bool			is_thinking;
 
-	pthread_t		thread;
+	pthread_t		*thread;
 }				t_philo;
 
 typedef struct s_data
