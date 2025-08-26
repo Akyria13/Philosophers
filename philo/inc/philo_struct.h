@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 19:07:46 by jowagner          #+#    #+#             */
-/*   Updated: 2025/08/24 18:04:12 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/08/26 16:06:10 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 # define PHILO_STRUCT_H
 
 # include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdint.h>
+# include <limits.h>
 # include <stdbool.h>
 # include <pthread.h>
-# include <limits.h>
 # include <sys/time.h>
-# include <stdlib.h>
 
 # define PHILO_MAX 200
 
@@ -33,14 +35,14 @@ typedef struct s_philo
 	t_fork			*fork_left;
 	t_fork			*fork_right;
 
-	int				*id;
+	int				id;
 	int				last_meal;
 
 	bool			is_alive;
 	bool			is_eating;
 	bool			is_thinking;
 
-	pthread_t		*thread;
+	pthread_t		thread;
 }				t_philo;
 
 typedef struct s_data

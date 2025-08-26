@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 18:32:54 by jowagner          #+#    #+#             */
-/*   Updated: 2025/08/24 18:08:55 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/08/26 16:12:00 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int	main(int ac, char **av)
 {
 	t_data	*data;
-	int		i;
-
+	// int		i;
+	
 	if (ac < 5 || ac > 6)
 	{
 		printf("The number of arguments must be :\n- Number of philosophers\n"
@@ -30,15 +30,15 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	data = NULL;
-	if (!init_struct(data, av))
+	if (!init_struct(data, ac, av))
 		return (1);
 	init_thread(data);
-	i = 0;
-	while (i < data->nbr_philo)
-	{
-        data->philo[i].id = i + 1;
-		pthread_join(data->philo->thread[i], NULL);
-		i++;
-	}
+	// i = 0;
+	// while (i < data->nbr_philo)
+	// {
+    //     data->philo[i].id = i + 1;
+	// 	pthread_join(data->philo->thread, NULL);
+	// 	i++;
+	// }
 	return (0);
 }
