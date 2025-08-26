@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 18:32:54 by jowagner          #+#    #+#             */
-/*   Updated: 2025/08/26 16:12:00 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/08/26 17:55:01 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@ int	main(int ac, char **av)
 		printf("Arguments are incorrect.");
 		return (1);
 	}
-	data = NULL;
-	if (!init_struct(data, ac, av))
+	data = init_data(ac, av);
+	if (!data)
 		return (1);
-	init_thread(data);
+	init_thread(data, &data->philo);
+	free(data);
 	// i = 0;
 	// while (i < data->nbr_philo)
 	// {
@@ -42,3 +43,10 @@ int	main(int ac, char **av)
 	// }
 	return (0);
 }
+
+/*TODO*/
+/*memset philo
+* ou pas sur philo
+condition if dans create & join*/
+
+/*prompt à Claude pedagogue + les sources*/

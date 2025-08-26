@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 18:32:20 by jowagner          #+#    #+#             */
-/*   Updated: 2025/08/26 15:21:55 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/08/26 17:53:46 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include "philo_struct.h"
 
 //- Initialization -//
-void    	init_thread(t_data *data);
-bool	    init_struct(t_data *data, int ac, char **av);
+void    	init_thread(t_data *data, t_philo *philo);
+t_data	    *init_data(int ac, char **av);
 //--- --- --- --- ---//
 
 /*Parsing*/
