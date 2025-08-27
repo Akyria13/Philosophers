@@ -6,16 +6,27 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 18:32:54 by jowagner          #+#    #+#             */
-/*   Updated: 2025/08/26 17:55:01 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/08/27 16:22:19 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+static bool	init_everything(t_data *data, int ac, char **av)
+{
+	data = init_data(ac, av);
+	if (!data)
+		return (false);
+	if (!init_thread(data, &data->philo))
+	{
+		return (false);
+	}
+	return (true);
+}
+
 int	main(int ac, char **av)
 {
 	t_data	*data;
-	// int		i;
 	
 	if (ac < 5 || ac > 6)
 	{
@@ -29,24 +40,17 @@ int	main(int ac, char **av)
 		printf("Arguments are incorrect.");
 		return (1);
 	}
-	data = init_data(ac, av);
-	if (!data)
+	data = NULL;
+	if (!init_everything(data, ac, av))
 		return (1);
-	init_thread(data, &data->philo);
 	free(data);
-	// i = 0;
-	// while (i < data->nbr_philo)
-	// {
-    //     data->philo[i].id = i + 1;
-	// 	pthread_join(data->philo->thread, NULL);
-	// 	i++;
-	// }
 	return (0);
 }
 
-/*TODO*/
-/*memset philo
-* ou pas sur philo
-condition if dans create & join*/
+/*
+* TODO
+* - Initialiser la structure philo.
+* - Condition if dans create & join dans mes threads.
+*/
 
 /*prompt à Claude pedagogue + les sources*/
