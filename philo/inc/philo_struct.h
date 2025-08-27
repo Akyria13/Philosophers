@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 19:07:46 by jowagner          #+#    #+#             */
-/*   Updated: 2025/08/26 17:52:37 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/08/27 16:44:46 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_philo
 
 typedef struct s_data
 {
-	t_philo			philo;
+	t_philo			*philo;
 
 	t_fork			*fork;
 

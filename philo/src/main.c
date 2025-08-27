@@ -6,18 +6,16 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 18:32:54 by jowagner          #+#    #+#             */
-/*   Updated: 2025/08/27 16:22:19 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/08/27 17:36:05 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static bool	init_everything(t_data *data, int ac, char **av)
+static bool	init_everything(t_data *data, t_philo *philo, int ac, char **av)
 {
-	data = init_data(ac, av);
-	if (!data)
-		return (false);
-	if (!init_thread(data, &data->philo))
+	if (!init_data(data, ac, av) ||
+		!init_thread(data, philo))
 	{
 		return (false);
 	}
@@ -26,7 +24,8 @@ static bool	init_everything(t_data *data, int ac, char **av)
 
 int	main(int ac, char **av)
 {
-	t_data	*data;
+	t_data	data;
+	t_philo philo[PHILO_MAX];
 	
 	if (ac < 5 || ac > 6)
 	{
@@ -40,16 +39,19 @@ int	main(int ac, char **av)
 		printf("Arguments are incorrect.");
 		return (1);
 	}
-	data = NULL;
-	if (!init_everything(data, ac, av))
+	ft_memset(&data, 0, sizeof(data));
+	ft_memset(&philo, 0, sizeof(philo));
+	// if (!data || !philo)
+	// 	return (1);
+	if (!init_everything(&data, philo, ac, av))
 		return (1);
-	free(data);
+	//free(data):
+	//free(philo);
 	return (0);
 }
 
 /*
 * TODO
-* - Initialiser la structure philo.
 * - Condition if dans create & join dans mes threads.
 */
 
