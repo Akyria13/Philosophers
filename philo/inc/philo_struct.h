@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 19:07:46 by jowagner          #+#    #+#             */
-/*   Updated: 2025/08/27 16:44:46 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/08/31 18:22:38 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PHILO_STRUCT_H
 
 # include <stdio.h>
+# include <string.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdint.h>
