@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:19:04 by jowagner          #+#    #+#             */
-/*   Updated: 2025/09/03 16:30:17 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/09/03 17:39:02 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,33 @@ bool	init_philo(t_data *data, t_philo *philo)
 	while (++i < data->nbr_philo)
 	{
 		philo[i].id = i + 1;
+		philo[i].last_meal = 0;
 		philo[i].is_alive = true;
 		philo[i].is_eating = false;
 		philo[i].is_thinking = false;
-		printf("ID de philo dans init_philo = %d\n", philo[i].id);
+		if (pthread_mutex_init(&philo[i].mutex, NULL) != 0)
+			return (false);
+		printf("ID de philo dans init_philo = %d\n", philo[i].id); //Debug
 	}
-	printf("Vérification de philo mort (1 = vivant, 0 = mort) = %d\n", philo->is_alive);
+	printf("Vérification de philo mort (1 = vivant, 0 = mort) = %d\n", philo->is_alive); //Debug
 	printf("---\n"); //Debug
 	return (true);
 }
 
 bool	init_fork(t_data *data, t_fork *fork)
 {
-	(void)data;
-	(void)fork;
+	int	i;
+
+	i = 0;
 	printf("<<< INIT_FORK >>>\n"); //Debug
-	printf("Test fork\n"); //Debuf
+	while (i < data->nbr_philo)
+	{
+		fork[i].id = i;
+		if (pthread_mutex_init(&fork[i].mutex, NULL) != 0)
+			return (false);
+		printf("ID de fork dans init_fork = %d\n", fork[i].id); //Debug
+		i++;
+	}
 	printf("---\n"); //Debug
 	return (true);
 }
@@ -71,7 +82,7 @@ void	*print_id(void *arg)
 	while (1)
 	{
 		pthread_mutex_lock(&philo->mutex);
-		printf("Philo id =  %d\n", philo->id);
+		printf("Philo id = %d\n", philo->id); //Debug
 		// printf("Philo is_alive =  %d\n", philo->is_alive); //Debug
 		// printf("---\n"); //Debug
 		pthread_mutex_unlock(&philo->mutex);
@@ -85,19 +96,23 @@ bool	init_thread(t_data *data, t_philo *philo)
 
 	i = 0;
 	printf("<<< INIT_THREAD >>>\n"); //Debug
-	printf("Adresse de nbr_philo dans init_thread =  %p\n", &data->nbr_philo);
-	while (i <= data->nbr_philo)
+	printf("Adresse de nbr_philo dans init_thread =  %p\n", &data->nbr_philo); //Debug
+	while (i < data->nbr_philo)
 	{
-		printf("nbr_philo dans la boucle thread =  %d, i = %d\n", data->nbr_philo, i);
 		philo[i].id = i + 1;
-		printf("Valeur de i dans la boucle thread = %d\n", i);
-		pthread_mutex_init(&philo[i].mutex, NULL);
-		if (pthread_create(&philo[i].thread, NULL, &print_id, &philo[i]))
+		printf("Valeur de i dans la boucle thread = %d\n", i); //Debug
+		if (pthread_mutex_init(&philo[i].mutex, NULL) != 0)
+			return (false);
+		if (pthread_create(&philo[i].thread, NULL, &print_id, &philo[i]) != 0)
 			return (false);
 		i++;
 	}
+	printf("nbr_philo après la boucle thread =  %d, i = %d\n", data->nbr_philo, i); //Debug
 	i = 0;
-	while (i <= data->nbr_philo)
-		pthread_join(philo[i++].thread, NULL);
+	while (i < data->nbr_philo)
+	{
+		if (pthread_join(philo[i++].thread, NULL) != 0)
+			return (false);
+	}
 	return (true);
 }
