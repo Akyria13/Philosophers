@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jolanwagner13 <jolanwagner13@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:19:04 by jowagner          #+#    #+#             */
-/*   Updated: 2025/09/03 17:39:02 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/09/04 17:41:21 by jolanwagner      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,6 @@ bool	init_thread(t_data *data, t_philo *philo)
 	{
 		philo[i].id = i + 1;
 		printf("Valeur de i dans la boucle thread = %d\n", i); //Debug
-		if (pthread_mutex_init(&philo[i].mutex, NULL) != 0)
-			return (false);
 		if (pthread_create(&philo[i].thread, NULL, &print_id, &philo[i]) != 0)
 			return (false);
 		i++;
