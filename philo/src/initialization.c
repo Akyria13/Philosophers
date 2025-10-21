@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:19:04 by jowagner          #+#    #+#             */
-/*   Updated: 2025/10/21 17:03:33 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/10/21 18:10:39 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,20 +83,18 @@ bool	init_fork(t_data *data, t_fork *fork)
 	return (true);
 }
 
-void	*print_id(void *arg)
+void	*routine(void *arg)
 {
 	t_philo	*philo;
+	long	current_time;
 
 	philo = arg;
 	while (1)
 	{
 		pthread_mutex_lock(&philo->data->lock_print);
-		printf("%ld ", ft_time(philo->data));
+		current_time = ft_time(philo->data);
+		printf("%ld Philo id = %d\n", current_time, philo->id); //Debug
 		pthread_mutex_unlock(&philo->data->lock_print);
-		pthread_mutex_lock(&philo->mutex);
-		printf("Philo id = %d\n", philo->id); //Debug
-		pthread_mutex_unlock(&philo->mutex);
-		// printf("Philo is_alive =  %d\n", philo->is_alive); //Debug
 		sleep(1);
 	}
 }
@@ -111,7 +109,7 @@ bool	init_thread(t_data *data, t_philo *philo)
 	{
 		philo[i].id = i + 1;
 		// printf("Valeur de i dans la boucle thread = %d\n", i); //Debug
-		if (pthread_create(&philo[i].thread, NULL, &print_id, &philo[i]) != 0)
+		if (pthread_create(&philo[i].thread, NULL, &routine, &philo[i]) != 0)
 			return (false);
 		i++;
 	}

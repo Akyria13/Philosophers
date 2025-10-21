@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 14:34:27 by jowagner          #+#    #+#             */
-/*   Updated: 2025/10/20 18:43:57 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/10/21 18:06:51 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,10 @@ long	ft_time(t_data *data)
 {
 	if (data->start_time == 0)
 	{
-		gettimeofday(&data->tv, NULL);	
+		gettimeofday(&data->tv, NULL);
 		data->start_time = (data->tv.tv_sec * 1000) + (data->tv.tv_usec / 1000);
 	}
 	gettimeofday(&data->tv, NULL);
-	// printf("%ld\n", ((data->tv.tv_sec * 1000) + (data->tv.tv_usec / 1000)) - data->start_time);
 	return ((data->tv.tv_sec * 1000) + (data->tv.tv_usec / 1000) - data->start_time);
 }
 
