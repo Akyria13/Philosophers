@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 19:07:46 by jowagner          #+#    #+#             */
-/*   Updated: 2025/08/31 18:22:38 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/10/21 16:48:26 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 
 # define PHILO_MAX 200
 
+typedef struct s_data t_data;
+
 typedef struct s_fork
 {
 	int				id;
@@ -35,6 +37,7 @@ typedef struct s_philo
 {
 	t_fork			*fork_left;
 	t_fork			*fork_right;
+	t_data			*data;
 
 	int				id;
 	int				last_meal;
@@ -53,6 +56,10 @@ typedef struct s_data
 
 	t_fork			*fork;
 
+	struct timeval tv;
+
+	long			start_time;
+
 	int				nbr_philo;
 	int				nbr_meal;
 	int				time_to_die;
@@ -63,6 +70,7 @@ typedef struct s_data
 	pthread_mutex_t	lock_meal;
 	pthread_mutex_t	lock_die;
 	pthread_mutex_t	lock_eat;
+	pthread_mutex_t	lock_print;
 }				t_data;
 
 #endif

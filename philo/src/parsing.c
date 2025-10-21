@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 15:47:43 by jowagner          #+#    #+#             */
-/*   Updated: 2025/08/21 14:37:54 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/10/17 21:28:38 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ bool	parsing(int ac, char **av)
 	{
 		if (!is_number(av[i]))
 		{
-			printf("Argument must be a number.\n");
 			return (false);
 		}
 		if (ft_atoi(av[i]) >= INT_MAX

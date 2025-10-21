@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 18:32:54 by jowagner          #+#    #+#             */
-/*   Updated: 2025/09/03 17:48:20 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/10/20 19:12:24 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ int	main(int ac, char **av)
 	}
 	data.philo = philo;
 	data.fork = fork;
-	// memset(&data, 0, sizeof(data));
-	// memset(&philo, 0, sizeof(philo));
 	if (!init_everything(&data, philo, ac, av))
 		return (1);
 	return (0);
