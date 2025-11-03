@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 19:07:46 by jowagner          #+#    #+#             */
-/*   Updated: 2025/10/21 16:48:26 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/10/22 17:44:55 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,20 @@
 
 typedef struct s_data t_data;
 
+enum	e_status
+{
+	LEFT_FORK,
+	RIGHT_FORK,
+	DEAD,
+	EATING,
+	SLEEPING,
+	THINKING
+};
+
 typedef struct s_fork
 {
 	int				id;
+	// bool			available;
 	pthread_mutex_t	mutex;
 }				t_fork;
 
@@ -41,6 +52,8 @@ typedef struct s_philo
 
 	int				id;
 	int				last_meal;
+
+	long			time_since_last_meal;
 
 	bool			is_alive;
 	bool			is_eating;

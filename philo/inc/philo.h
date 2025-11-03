@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 18:32:20 by jowagner          #+#    #+#             */
-/*   Updated: 2025/10/20 18:30:19 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/10/22 17:51:35 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ bool		init_thread(t_data *data, t_philo *philo);
 
 /*Parsing*/
 bool		parsing(int ac, char **av);
+//--- --- --- --- ---//
+
+/*Routine*/
+void		print_activities(int status, t_philo *philo);
+bool		is_alive(t_data *data);
+void		take_fork(t_philo *philo);
+bool		is_eating(t_philo *philo);
 //--- --- --- --- ---//
 
 /*Thread*/
