@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jolanwagner13 <jolanwagner13@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 13:24:36 by jowagner          #+#    #+#             */
-/*   Updated: 2025/10/22 18:05:18 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/12/22 19:31:43 by jolanwagner      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // bool	ft_routine(t_data *data)
 // {
 // 	/*
-// 	tant que is_alive = true alors routine >
+// 	Tant que is_alive = true, alors routine.
 // 	*/
 // }
 
@@ -50,6 +50,7 @@ bool	is_alive(t_data *data)
 	if (current_time - data->philo->last_meal > data->time_to_die)
 	{
 		data->philo->is_alive = false;
+		print_activities(DEAD, data->philo);
 		return (false);
 	}
 	// data->philo->time_since_last_meal = current_time - data->philo->last_meal;
@@ -60,9 +61,9 @@ bool	is_alive(t_data *data)
 	// }
 	return (true);
 	/*
-	si le temps écoulé est > à time_to_die alors is_alive = false;
-	current_time - last_meal = time_since_last_meal
-	si time_since_last_meal est > à TTD alors is_alive = false;
+	Si le temps écoulé est > à time_to_die alors is_alive = false;
+	current_time - last_meal = time_since_last_meal;
+	Si time_since_last_meal est > à TTD alors is_alive = false;
 	*/
 }
 
@@ -88,18 +89,19 @@ bool	is_eating(t_philo *philo)
 {
 	take_fork(philo);
 	print_activities(EATING, philo);
+	ft_sleep(philo->data, philo->data->time_to_eat);
 	pthread_mutex_unlock(&philo->fork_left->mutex);
 	pthread_mutex_unlock(&philo->fork_right->mutex);
-// 	//	lock les fourchettes (surement avant)
+// 	//	Lock les fourchettes (surement avant ?).
 // 	// pthread_mutex_lock(&philo->mutex);
 // 	/*
 // 	is_alive (???)
-// 	lock
+// 	Lock.
 // 	printf (philo x "is eating")
-// 	unlock
-// 	mettre à jour last_meal
-// 	tu manges le temps de TTE
-// 	unlock les forks
+// 	Unlock.
+// 	Mettre à jour last_meal.
+// 	Tu manges le temps de TTE.
+// 	Unlock les forks.
 // 	*/
 // 	// pthread_mutex_unlock(&philo->mutex);
 	// return (0);
@@ -109,20 +111,20 @@ bool	is_eating(t_philo *philo)
 // bool	is_sleeping(t_philo *philo)
 // {
 // 	/*
-// 	is_alive (???)
-// 	lock
+// 	is_alive (?)
+// 	Lock.
 // 	printf (philo x "is sleeping");
-// 	unlock
-// 	tu dodo le temps de TTS
+// 	Unlock.
+// 	Tu dodo le temps de TTS.
 // 	*/
 // }
 
 // bool	is_thinking(t_philo *philo)
 // {
 // 	/*
-// 	is_alive (???)
-// 	lock
+// 	is_alive (?);
+// 	Lock.
 // 	printf(philo x "is thinking");
-// 	unlock
+// 	Unlock.
 // 	*/
 // }

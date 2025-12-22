@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jolanwagner13 <jolanwagner13@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:19:04 by jowagner          #+#    #+#             */
-/*   Updated: 2025/10/22 17:45:10 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/12/22 19:18:24 by jolanwagner      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

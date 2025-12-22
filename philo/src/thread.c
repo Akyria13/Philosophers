@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   thread.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jolanwagner13 <jolanwagner13@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 16:18:48 by jowagner          #+#    #+#             */
-/*   Updated: 2025/10/22 17:52:31 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/12/22 19:19:17 by jolanwagner      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	*routine(void *arg)
 
 bool	init_thread(t_data *data, t_philo *philo)
 {
-	int			i;
+	int	i;
 
 	i = 0;
 	while (i < data->nbr_philo)
@@ -36,6 +36,7 @@ bool	init_thread(t_data *data, t_philo *philo)
 			return (false);
 		i++;
 	}
+	//Lance la boucle de monitoring (check s'il faut metre fin à la simulation).
 	i = 0;
 	while (i < data->nbr_philo)
 	{

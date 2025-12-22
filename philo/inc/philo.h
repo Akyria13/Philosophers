@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jolanwagner13 <jolanwagner13@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 18:32:20 by jowagner          #+#    #+#             */
-/*   Updated: 2025/10/22 17:51:35 by jowagner         ###   ########.fr       */
+/*   Updated: 2025/11/17 11:39:44 by jolanwagner      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ bool		is_eating(t_philo *philo);
 /*Utils*/
 int			ft_atoi(char *str);
 long		ft_time(t_data *data);
+bool		ft_sleep(t_data *data, int duration);
 // void	    ft_bzero(void *s, size_t n);
 // void	    *ft_memset(void *str, int c, size_t n);
 // void	    *ft_calloc(size_t count, size_t size);
