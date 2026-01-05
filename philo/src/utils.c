@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jolanwagner13 <jolanwagner13@student.42    +#+  +:+       +#+        */
+/*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 14:34:27 by jowagner          #+#    #+#             */
-/*   Updated: 2025/12/22 19:16:05 by jolanwagner      ###   ########.fr       */
+/*   Updated: 2026/01/05 14:55:11 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,34 +59,3 @@ bool	ft_sleep(t_data *data, int duration)
 	}
 	return (true);
 }
-
-// void	ft_bzero(void *s, size_t n)
-// {
-// 	ft_memset(s, '\0', n);
-// }
-
-// void	*ft_memset(void *str, int c, size_t n)
-// {
-// 	char	*s;
-
-// 	s = (char *)str;
-// 	while (n > 0)
-// 	{
-// 		s[n - 1] = c;
-// 		n--;
-// 	}
-// 	return (str);
-// }
-
-// void	*ft_calloc(size_t count, size_t size)
-// {
-// 	char	*str;
-
-// 	if (size != 0 && count > SIZE_MAX / size)
-// 		return (NULL);
-// 	str = malloc(count * size);
-// 	if (!str)
-// 		return (NULL);
-// 	ft_bzero(str, count * size);
-// 	return (str);
-// }

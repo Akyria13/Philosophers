@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jolanwagner13 <jolanwagner13@student.42    +#+  +:+       +#+        */
+/*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:19:04 by jowagner          #+#    #+#             */
-/*   Updated: 2025/12/22 19:18:24 by jolanwagner      ###   ########.fr       */
+/*   Updated: 2026/01/05 14:33:17 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ bool	init_philo(t_data *data, t_philo *philo)
 		philo[i].is_eating = false;
 		philo[i].is_thinking = false;
 		philo[i].fork_left = &data->fork[i];
-		philo[i].fork_right = &data->fork[(i + 1) & data->nbr_philo];
+		philo[i].fork_right = &data->fork[(i + 1) % data->nbr_philo];
 		if (pthread_mutex_init(&philo[i].mutex, NULL) != 0)
 			return (false);
 	}

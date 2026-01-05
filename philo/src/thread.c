@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   thread.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jolanwagner13 <jolanwagner13@student.42    +#+  +:+       +#+        */
+/*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 16:18:48 by jowagner          #+#    #+#             */
-/*   Updated: 2025/12/22 19:19:17 by jolanwagner      ###   ########.fr       */
+/*   Updated: 2026/01/05 14:55:39 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,45 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = arg;
+	//Lock des threads jusqu'à la création de tous les threads.
 	while (1)
 	{
 		is_eating(philo);
+		is_sleeping(philo);
+		is_thinking(philo);
 		sleep(1);
 	}
+}
+
+void	init_monitor(t_data *data)
+{
+	long	current_time;
+	int		i;
+
+	i = 0;
+	current_time = ft_time(data);
+	while (i < data->nbr_philo)
+	{
+		if (current_time - data->philo->last_meal > data->time_to_die)
+		{
+			data->philo->is_alive = false;
+			print_activities(DEAD, data->philo);
+			return ;
+		}
+		i++;
+	}
+	// data->philo->time_since_last_meal = current_time - data->philo->last_meal;
+	// if (data->philo->time_since_last_meal > data->time_to_die)
+	// {
+	// 	data->philo->is_alive = false;
+	// 	return (false);
+	// }
+	/*
+	Si le temps écoulé est > à time_to_die alors is_alive = false;
+	current_time - last_meal = time_since_last_meal;
+	Si time_since_last_meal est > à TTD alors is_alive = false;
+	*/
+	return ;
 }
 
 bool	init_thread(t_data *data, t_philo *philo)
@@ -29,6 +63,7 @@ bool	init_thread(t_data *data, t_philo *philo)
 	int	i;
 
 	i = 0;
+	// data->start_time = 0;
 	while (i < data->nbr_philo)
 	{
 		philo[i].id = i + 1;
@@ -36,7 +71,7 @@ bool	init_thread(t_data *data, t_philo *philo)
 			return (false);
 		i++;
 	}
-	//Lance la boucle de monitoring (check s'il faut metre fin à la simulation).
+	init_monitor(data); //Lance la boucle de monitoring (check s'il faut metre fin à la simulation).
 	i = 0;
 	while (i < data->nbr_philo)
 	{

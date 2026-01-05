@@ -3,21 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jolanwagner13 <jolanwagner13@student.42    +#+  +:+       +#+        */
+/*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 13:24:36 by jowagner          #+#    #+#             */
-/*   Updated: 2025/12/22 19:31:43 by jolanwagner      ###   ########.fr       */
+/*   Updated: 2026/01/05 14:52:05 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// bool	ft_routine(t_data *data)
-// {
-// 	/*
-// 	Tant que is_alive = true, alors routine.
-// 	*/
-// }
+void	take_fork(t_philo *philo)
+{
+	if (philo->id % 2 == 1)
+	{
+		pthread_mutex_lock(&philo->fork_left->mutex);
+		print_activities(LEFT_FORK, philo);
+		pthread_mutex_lock(&philo->fork_right->mutex);
+		print_activities(RIGHT_FORK, philo);
+	}
+	else
+	{
+		pthread_mutex_lock(&philo->fork_right->mutex);
+		print_activities(RIGHT_FORK, philo);
+		pthread_mutex_lock(&philo->fork_left->mutex);
+		print_activities(LEFT_FORK, philo);
+	}
+}
 
 void	print_activities(int status, t_philo *philo)
 {
@@ -42,89 +53,45 @@ void	print_activities(int status, t_philo *philo)
 	pthread_mutex_unlock(&philo->data->lock_print);
 }
 
-bool	is_alive(t_data *data)
+bool	is_thinking(t_philo *philo)
 {
-	long	current_time;
-
-	current_time = ft_time(data);
-	if (current_time - data->philo->last_meal > data->time_to_die)
-	{
-		data->philo->is_alive = false;
-		print_activities(DEAD, data->philo);
-		return (false);
-	}
-	// data->philo->time_since_last_meal = current_time - data->philo->last_meal;
-	// if (data->philo->time_since_last_meal > data->time_to_die)
-	// {
-	// 	data->philo->is_alive = false;
-	// 	return (false);
-	// }
+	//is_alive (?);
+	print_activities(THINKING, philo);
 	return (true);
-	/*
-	Si le temps écoulé est > à time_to_die alors is_alive = false;
-	current_time - last_meal = time_since_last_meal;
-	Si time_since_last_meal est > à TTD alors is_alive = false;
-	*/
 }
 
-void	take_fork(t_philo *philo)
+bool	is_sleeping(t_philo *philo)
 {
-	if (philo->id % 2 == 1)
-	{
-		pthread_mutex_lock(&philo->fork_left->mutex);
-		print_activities(LEFT_FORK, philo);
-		pthread_mutex_lock(&philo->fork_right->mutex);
-		print_activities(RIGHT_FORK, philo);
-	}
-	else
-	{
-		pthread_mutex_lock(&philo->fork_right->mutex);
-		print_activities(RIGHT_FORK, philo);
-		pthread_mutex_lock(&philo->fork_left->mutex);
-		print_activities(LEFT_FORK, philo);
-	}
+	//is_alive (?);
+	ft_sleep(philo->data, philo->data->time_to_sleep);
+	print_activities(SLEEPING, philo);
+	return (true);
 }
 
 bool	is_eating(t_philo *philo)
 {
+	//is_alive (???);
 	take_fork(philo);
 	print_activities(EATING, philo);
+	printf("Last meal de philo AVANT update %d : %d\n", philo->id, philo->last_meal);
+	pthread_mutex_lock(&philo->mutex);
+	philo->last_meal = ft_time(philo->data);
+	pthread_mutex_unlock(&philo->mutex);
+	printf("Last meal de philo APRES update %d : %d\n", philo->id, philo->last_meal);
 	ft_sleep(philo->data, philo->data->time_to_eat);
 	pthread_mutex_unlock(&philo->fork_left->mutex);
 	pthread_mutex_unlock(&philo->fork_right->mutex);
-// 	//	Lock les fourchettes (surement avant ?).
-// 	// pthread_mutex_lock(&philo->mutex);
-// 	/*
-// 	is_alive (???)
-// 	Lock.
-// 	printf (philo x "is eating")
-// 	Unlock.
-// 	Mettre à jour last_meal.
-// 	Tu manges le temps de TTE.
-// 	Unlock les forks.
-// 	*/
-// 	// pthread_mutex_unlock(&philo->mutex);
+	// 	//	Lock les fourchettes (surement avant ?).
+	// 	// pthread_mutex_lock(&philo->mutex);
+	// 	/*
+	// 	Lock.
+	// 	printf (philo x "is eating")
+	// 	Unlock.
+	// 	Mettre à jour last_meal.
+	// 	Tu manges le temps de TTE.
+	// 	Unlock les forks.
+	// 	*/
+	// 	// pthread_mutex_unlock(&philo->mutex);
 	// return (0);
 	return (true);
 }
-
-// bool	is_sleeping(t_philo *philo)
-// {
-// 	/*
-// 	is_alive (?)
-// 	Lock.
-// 	printf (philo x "is sleeping");
-// 	Unlock.
-// 	Tu dodo le temps de TTS.
-// 	*/
-// }
-
-// bool	is_thinking(t_philo *philo)
-// {
-// 	/*
-// 	is_alive (?);
-// 	Lock.
-// 	printf(philo x "is thinking");
-// 	Unlock.
-// 	*/
-// }

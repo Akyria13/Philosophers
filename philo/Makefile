@@ -5,7 +5,7 @@ AUTHOR			:=		jowagner
 NAME			:= 		philo
 
 CC				:= 		cc
-CFLAGS			:= 		-Wall -Wextra -Werror -MD -MP -Iinc/ -g3 -pthread
+CFLAGS			:= 		-Wall -Wextra -Werror -MD -MP -Iinc/ -g3 -pthread -fsanitize=thread
 
 SRC				:=		src/initialization.c \
 						src/main.c \
@@ -53,7 +53,7 @@ re : 					.print_header fclean all $(NAME)
 #______________________________________________________COMMANDS
 
 $(NAME) 			: 	$(OBJ)
-							$(CC) -o $(NAME) $(OBJ)
+							$(CC) -o $(NAME) $(OBJ) -fsanitize=thread 
 
 $(OBJ)				:	| $(DIRS)
 
