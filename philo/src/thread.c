@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 16:18:48 by jowagner          #+#    #+#             */
-/*   Updated: 2026/01/05 14:55:39 by jowagner         ###   ########.fr       */
+/*   Updated: 2026/01/05 15:26:49 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,14 @@ void	init_monitor(t_data *data)
 	current_time = ft_time(data);
 	while (i < data->nbr_philo)
 	{
-		if (current_time - data->philo->last_meal > data->time_to_die)
+		pthread_mutex_lock(&data->philo[i].mutex);
+		if (current_time - data->philo[i].last_meal > data->time_to_die)
 		{
 			data->philo->is_alive = false;
 			print_activities(DEAD, data->philo);
 			return ;
 		}
+		pthread_mutex_unlock(&data->philo[i].mutex);
 		i++;
 	}
 	// data->philo->time_since_last_meal = current_time - data->philo->last_meal;

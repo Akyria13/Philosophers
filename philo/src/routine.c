@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 13:24:36 by jowagner          #+#    #+#             */
-/*   Updated: 2026/01/05 14:52:05 by jowagner         ###   ########.fr       */
+/*   Updated: 2026/01/05 15:18:02 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ bool	is_thinking(t_philo *philo)
 bool	is_sleeping(t_philo *philo)
 {
 	//is_alive (?);
-	ft_sleep(philo->data, philo->data->time_to_sleep);
 	print_activities(SLEEPING, philo);
+	ft_sleep(philo->data, philo->data->time_to_sleep);
 	return (true);
 }
 
