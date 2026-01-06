@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:19:04 by jowagner          #+#    #+#             */
-/*   Updated: 2026/01/06 14:29:09 by jowagner         ###   ########.fr       */
+/*   Updated: 2026/01/06 16:20:45 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static bool	init_mutex(t_data *data)
 		return (false);
 	if (pthread_mutex_init(&data->lock_print, NULL) != 0)
 		return (false);
+	if (pthread_mutex_init(&data->lock_time, NULL) != 0)
+		return (false);
 	if (pthread_mutex_init(&data->lock_stop, NULL) != 0)
 		return (false);
 	return (true);
@@ -30,6 +32,8 @@ static bool	init_mutex(t_data *data)
 bool	init_data(t_data *data, int ac, char **av)
 {
 	data->start_time = 0;
+	// data->all_threads_ready = false;
+	data->simulation_stopped = false;
 	data->nbr_philo = ft_atoi(av[1]);
 	data->time_to_die = ft_atoi(av[2]);
 	data->time_to_eat = ft_atoi(av[3]);
@@ -53,6 +57,7 @@ bool	init_philo(t_data *data, t_philo *philo)
 		philo[i].data = data;
 		philo[i].id = i + 1;
 		philo[i].last_meal = 0;
+		// philo[i].meals_eaten = 0;
 		philo[i].is_alive = true;
 		philo[i].is_eating = false;
 		philo[i].is_thinking = false;

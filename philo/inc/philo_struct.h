@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 19:07:46 by jowagner          #+#    #+#             */
-/*   Updated: 2026/01/06 14:29:37 by jowagner         ###   ########.fr       */
+/*   Updated: 2026/01/06 16:20:35 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_philo
 
 	int				id;
 	int				last_meal;
+	int				meals_eaten;
 
 	long			time_since_last_meal;
 
@@ -80,12 +81,15 @@ typedef struct s_data
 	int				time_to_sleep;
 	int				time_to_think;
 
+	// bool			all_threads_ready;
 	bool			simulation_stopped;
 
 	pthread_mutex_t	lock_meal;
 	pthread_mutex_t	lock_die;
 	pthread_mutex_t	lock_eat;
 	pthread_mutex_t	lock_print;
+	pthread_mutex_t	lock_time;
+	// pthread_mutex_t	lock_ready;
 	pthread_mutex_t	lock_stop;
 }				t_data;
 

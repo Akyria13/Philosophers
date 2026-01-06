@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 13:24:36 by jowagner          #+#    #+#             */
-/*   Updated: 2026/01/06 14:47:06 by jowagner         ###   ########.fr       */
+/*   Updated: 2026/01/06 16:17:17 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 bool	is_sim_running(t_data *data)
 {
-	if (data->philo->is_alive == true)
-	{
-		return (true);
-	}
-	return (false);
+	bool	running;
+
+	pthread_mutex_lock(&data->lock_stop);
+    running = !data->simulation_stopped;
+    pthread_mutex_unlock(&data->lock_stop);
+	return (running);
 }
 
 void	take_fork(t_philo *philo)
@@ -42,8 +43,14 @@ void	take_fork(t_philo *philo)
 void	print_activities(int status, t_philo *philo)
 {
 	long	current_time;
+	bool	should_print;
 
-	pthread_mutex_lock(&philo->data->lock_print);
+	pthread_mutex_lock(&philo->data->lock_stop);
+    should_print = !philo->data->simulation_stopped;
+    pthread_mutex_unlock(&philo->data->lock_stop);
+    if (!should_print && status != DEAD)
+        return ;
+		pthread_mutex_lock(&philo->data->lock_print);
 	current_time = ft_time(philo->data);
 	// if (status == LEFT_FORK || status == RIGHT_FORK)
 	// 	printf("%ld %d has taken a fork\n", current_time, philo->id);
@@ -64,14 +71,16 @@ void	print_activities(int status, t_philo *philo)
 
 bool	is_thinking(t_philo *philo)
 {
-	//is_alive (?);
+	if (!is_sim_running(philo->data))
+		return (false);
 	print_activities(THINKING, philo);
 	return (true);
 }
 
 bool	is_sleeping(t_philo *philo)
 {
-	//is_alive (?);
+	if (!is_sim_running(philo->data))
+		return (false);
 	print_activities(SLEEPING, philo);
 	ft_sleep(philo->data, philo->data->time_to_sleep);
 	return (true);
@@ -79,28 +88,20 @@ bool	is_sleeping(t_philo *philo)
 
 bool	is_eating(t_philo *philo)
 {
-	//is_alive (???);
+	if (!is_sim_running(philo->data))
+		return (false);
 	take_fork(philo);
 	print_activities(EATING, philo);
-	printf("Last meal de philo AVANT update %d : %d\n", philo->id, philo->last_meal);
+	pthread_mutex_lock(&philo->mutex);
+    philo->last_meal = ft_time(philo->data);
+    pthread_mutex_unlock(&philo->mutex);
+	// printf("Last meal de philo AVANT update %d : %d\n", philo->id, philo->last_meal);
 	pthread_mutex_lock(&philo->mutex);
 	philo->last_meal = ft_time(philo->data);
 	pthread_mutex_unlock(&philo->mutex);
-	printf("Last meal de philo APRES update %d : %d\n", philo->id, philo->last_meal);
+	// printf("Last meal de philo APRES update %d : %d\n", philo->id, philo->last_meal);
 	ft_sleep(philo->data, philo->data->time_to_eat);
 	pthread_mutex_unlock(&philo->fork_left->mutex);
 	pthread_mutex_unlock(&philo->fork_right->mutex);
-	// 	//	Lock les fourchettes (surement avant ?).
-	// 	// pthread_mutex_lock(&philo->mutex);
-	// 	/*
-	// 	Lock.
-	// 	printf (philo x "is eating")
-	// 	Unlock.
-	// 	Mettre à jour last_meal.
-	// 	Tu manges le temps de TTE.
-	// 	Unlock les forks.
-	// 	*/
-	// 	// pthread_mutex_unlock(&philo->mutex);
-	// return (0);
 	return (true);
 }
