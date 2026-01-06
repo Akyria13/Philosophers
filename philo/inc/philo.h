@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 18:32:20 by jowagner          #+#    #+#             */
-/*   Updated: 2026/01/05 14:30:55 by jowagner         ###   ########.fr       */
+/*   Updated: 2026/01/06 14:59:27 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,15 @@ bool		parsing(int ac, char **av);
 void		print_activities(int status, t_philo *philo);
 // bool		is_alive(t_data *data);
 void		take_fork(t_philo *philo);
+void		*routine(void *arg);
 bool		is_eating(t_philo *philo);
+bool		is_sim_running(t_data *data);
 bool		is_thinking(t_philo *philo);
 bool		is_sleeping(t_philo *philo);
 //--- --- --- --- ---//
 
 /*Thread*/
+void		*monitor(void *arg);
 //--- --- --- --- ---//
 
 /*Utils*/

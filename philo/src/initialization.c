@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:19:04 by jowagner          #+#    #+#             */
-/*   Updated: 2026/01/05 14:33:17 by jowagner         ###   ########.fr       */
+/*   Updated: 2026/01/06 14:29:09 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static bool	init_mutex(t_data *data)
 	if (pthread_mutex_init(&data->lock_eat, NULL) != 0)
 		return (false);
 	if (pthread_mutex_init(&data->lock_print, NULL) != 0)
+		return (false);
+	if (pthread_mutex_init(&data->lock_stop, NULL) != 0)
 		return (false);
 	return (true);
 }

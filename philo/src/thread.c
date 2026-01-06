@@ -6,33 +6,20 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 16:18:48 by jowagner          #+#    #+#             */
-/*   Updated: 2026/01/05 15:26:49 by jowagner         ###   ########.fr       */
+/*   Updated: 2026/01/06 14:59:59 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*routine(void *arg)
-{
-	t_philo	*philo;
-
-	philo = arg;
-	//Lock des threads jusqu'à la création de tous les threads.
-	while (1)
-	{
-		is_eating(philo);
-		is_sleeping(philo);
-		is_thinking(philo);
-		sleep(1);
-	}
-}
-
-void	init_monitor(t_data *data)
+void	*monitor(void *arg)
 {
 	long	current_time;
 	int		i;
+	t_data	*data;
 
 	i = 0;
+	data = (t_data *)arg;
 	current_time = ft_time(data);
 	while (i < data->nbr_philo)
 	{
@@ -41,9 +28,16 @@ void	init_monitor(t_data *data)
 		{
 			data->philo->is_alive = false;
 			print_activities(DEAD, data->philo);
-			return ;
+			return (NULL);
+		}
+		else if (data->philo->is_alive == false)
+		{
+			pthread_mutex_lock(&data->lock_stop);
+    		data->simulation_stopped = true;
+    		pthread_mutex_unlock(&data->lock_stop);
 		}
 		pthread_mutex_unlock(&data->philo[i].mutex);
+		usleep(1000);
 		i++;
 	}
 	// data->philo->time_since_last_meal = current_time - data->philo->last_meal;
@@ -57,12 +51,13 @@ void	init_monitor(t_data *data)
 	current_time - last_meal = time_since_last_meal;
 	Si time_since_last_meal est > à TTD alors is_alive = false;
 	*/
-	return ;
+	return (NULL);
 }
 
 bool	init_thread(t_data *data, t_philo *philo)
 {
-	int	i;
+	pthread_t 	monitor_thread;
+	int			i;
 
 	i = 0;
 	// data->start_time = 0;
@@ -73,12 +68,15 @@ bool	init_thread(t_data *data, t_philo *philo)
 			return (false);
 		i++;
 	}
-	init_monitor(data); //Lance la boucle de monitoring (check s'il faut metre fin à la simulation).
+	if (pthread_create(&monitor_thread, NULL, &monitor, data) != 0)
+		return (false);
+	// init_monitor(data); //Lance la boucle de monitoring (check s'il faut metre fin à la simulation).
 	i = 0;
 	while (i < data->nbr_philo)
 	{
 		if (pthread_join(philo[i++].thread, NULL) != 0)
 			return (false);
 	}
+	pthread_join(monitor_thread, NULL);
 	return (true);
 }

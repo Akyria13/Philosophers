@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_struct.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jolanwagner13 <jolanwagner13@student.42    +#+  +:+       +#+        */
+/*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 19:07:46 by jowagner          #+#    #+#             */
-/*   Updated: 2025/11/17 10:26:39 by jolanwagner      ###   ########.fr       */
+/*   Updated: 2026/01/06 14:29:37 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,13 @@ typedef struct s_data
 	int				time_to_sleep;
 	int				time_to_think;
 
+	bool			simulation_stopped;
+
 	pthread_mutex_t	lock_meal;
 	pthread_mutex_t	lock_die;
 	pthread_mutex_t	lock_eat;
 	pthread_mutex_t	lock_print;
+	pthread_mutex_t	lock_stop;
 }				t_data;
 
 #endif

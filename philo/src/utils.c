@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 14:34:27 by jowagner          #+#    #+#             */
-/*   Updated: 2026/01/05 15:11:33 by jowagner         ###   ########.fr       */
+/*   Updated: 2026/01/06 14:23:50 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ long	ft_time(t_data *data)
 	{
 		gettimeofday(&tv, NULL);
 		// gettimeofday(&data->tv, NULL);
-		data->start_time = (data->tv.tv_sec * 1000) + (data->tv.tv_usec / 1000);
+		data->start_time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
 	}
 	gettimeofday(&tv, NULL);
 	// gettimeofday(&data->tv, NULL);
-	return ((data->tv.tv_sec * 1000) + (data->tv.tv_usec / 1000) - data->start_time);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000) - data->start_time);
 }
 
 bool	ft_sleep(t_data *data, int duration)

@@ -6,11 +6,20 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 13:24:36 by jowagner          #+#    #+#             */
-/*   Updated: 2026/01/05 15:18:02 by jowagner         ###   ########.fr       */
+/*   Updated: 2026/01/06 14:47:06 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+bool	is_sim_running(t_data *data)
+{
+	if (data->philo->is_alive == true)
+	{
+		return (true);
+	}
+	return (false);
+}
 
 void	take_fork(t_philo *philo)
 {
