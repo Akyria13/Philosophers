@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 14:34:27 by jowagner          #+#    #+#             */
-/*   Updated: 2026/01/06 16:23:46 by jowagner         ###   ########.fr       */
+/*   Updated: 2026/01/07 15:23:38 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,13 @@ int	ft_atoi(char *str)
 
 long	ft_time(t_data *data)
 {
-	// struct timeval tv;
-	
 	pthread_mutex_lock(&data->lock_time);
 	if (data->start_time == 0)
 	{
-		// gettimeofday(&tv, NULL);
 		gettimeofday(&data->tv, NULL);
 		data->start_time = (data->tv.tv_sec * 1000) + (data->tv.tv_usec / 1000);
 	}
 	pthread_mutex_unlock(&data->lock_time);
-	// gettimeofday(&tv, NULL);
 	gettimeofday(&data->tv, NULL);
 	return ((data->tv.tv_sec * 1000) + (data->tv.tv_usec / 1000) - data->start_time);
 }

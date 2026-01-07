@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 13:24:36 by jowagner          #+#    #+#             */
-/*   Updated: 2026/01/06 16:17:17 by jowagner         ###   ########.fr       */
+/*   Updated: 2026/01/07 20:13:22 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	is_sim_running(t_data *data)
 	bool	running;
 
 	pthread_mutex_lock(&data->lock_stop);
-    running = !data->simulation_stopped;
+	running = !data->simulation_stopped;
     pthread_mutex_unlock(&data->lock_stop);
 	return (running);
 }
@@ -93,13 +93,9 @@ bool	is_eating(t_philo *philo)
 	take_fork(philo);
 	print_activities(EATING, philo);
 	pthread_mutex_lock(&philo->mutex);
-    philo->last_meal = ft_time(philo->data);
-    pthread_mutex_unlock(&philo->mutex);
-	// printf("Last meal de philo AVANT update %d : %d\n", philo->id, philo->last_meal);
-	pthread_mutex_lock(&philo->mutex);
 	philo->last_meal = ft_time(philo->data);
+	philo->meals_eaten++;
 	pthread_mutex_unlock(&philo->mutex);
-	// printf("Last meal de philo APRES update %d : %d\n", philo->id, philo->last_meal);
 	ft_sleep(philo->data, philo->data->time_to_eat);
 	pthread_mutex_unlock(&philo->fork_left->mutex);
 	pthread_mutex_unlock(&philo->fork_right->mutex);

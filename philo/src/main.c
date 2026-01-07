@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 18:32:54 by jowagner          #+#    #+#             */
-/*   Updated: 2026/01/06 16:21:20 by jowagner         ###   ########.fr       */
+/*   Updated: 2026/01/07 20:07:01 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = arg;
-	// while (true)
-	// {
-	// 	pthread_mutex_lock(&philo->data->lock_ready);
-	// 	if (philo->data->all_threads_ready)
-	// 	{
-	// 		pthread_mutex_unlock(&philo->data->lock_ready);
-	// 		break;
-	// 	}
-	// 	pthread_mutex_unlock(&philo->data->lock_ready);
-	// 	usleep(100);
-	// }
-	// if (philo->id % 2 == 0)
-	// 	usleep(100);
+	while (true)
+	{
+		pthread_mutex_lock(&philo->data->lock_ready);
+		if (philo->data->all_threads_ready)
+		{
+			pthread_mutex_unlock(&philo->data->lock_ready);
+			break;
+		}
+		pthread_mutex_unlock(&philo->data->lock_ready);
+		usleep(100);
+	}
+	if (philo->id % 2 == 0)
+		usleep(100);
 	while (is_sim_running(philo->data))
 	{
 		is_eating(philo);
