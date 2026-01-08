@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 18:32:54 by jowagner          #+#    #+#             */
-/*   Updated: 2026/01/07 20:07:01 by jowagner         ###   ########.fr       */
+/*   Updated: 2026/01/07 20:49:37 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,12 @@ void	*routine(void *arg)
 		usleep(100);
 	while (is_sim_running(philo->data))
 	{
-		is_eating(philo);
-		is_sleeping(philo);
-		is_thinking(philo);
+		if (!is_eating(philo))
+			return (NULL);
+		if (!is_sleeping(philo))
+			return (NULL);
+		if (!is_thinking(philo))
+			return (NULL);
 	}
 	return (NULL);
 }

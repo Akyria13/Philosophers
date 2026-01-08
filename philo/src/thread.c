@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 16:18:48 by jowagner          #+#    #+#             */
-/*   Updated: 2026/01/07 20:31:14 by jowagner         ###   ########.fr       */
+/*   Updated: 2026/01/08 16:14:30 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	meals_count(t_data *data)
 			while (i < data->nbr_philo)
 			{
 				pthread_mutex_lock(&data->philo[i].mutex);
-				if (data->philo[i].meals_eaten  >= data->nbr_meal)
+				if (data->philo[i].meals_eaten >= data->nbr_meal)
 					philo_full++;
 				pthread_mutex_unlock(&data->philo[i].mutex);
 				i++;
@@ -43,13 +43,23 @@ static void	meals_count(t_data *data)
 	return ;
 }
 
+/*
+Probleme du programme qui s arrete pas quand tous les philos sont full
+
+Ajouter un tableau de booleen. False si le philo n'est pas full | True si le philo est full
+Checker chaque case du tableau -> Si tous TRUE -> all_full = true
+Si all_full = true -> arreter le programme
+
+*/
+
 void	monitor(t_data *data)
 {
 	long	current_time;
 	long	last_meal;
 	int		i;
 
-	meals_count(data);
+	if (data->nbr_meal > 0)
+		meals_count(data);
 	while (true)
 	{
 		i = 0;
@@ -67,6 +77,8 @@ void	monitor(t_data *data)
 				pthread_mutex_unlock(&data->lock_stop);
 				return ;
 			}
+			if (data->nbr_meal == 0)
+				return ;
 			i++;
 		}
 		usleep(1000);
