@@ -6,11 +6,24 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 18:32:54 by jowagner          #+#    #+#             */
-/*   Updated: 2026/01/07 20:49:37 by jowagner         ###   ########.fr       */
+/*   Updated: 2026/01/08 17:17:24 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static void	only_one_philo(t_data *data)
+{
+	if (data->nbr_philo == 1)
+	{
+		pthread_mutex_lock(&data->philo->fork_left->mutex);
+		print_activities(LEFT_FORK, data->philo);
+		pthread_mutex_unlock(&data->philo->fork_left->mutex);
+		while (is_sim_running(data))
+			usleep(1000);
+		return ;
+	}
+}
 
 void	*routine(void *arg)
 {
@@ -30,6 +43,8 @@ void	*routine(void *arg)
 	}
 	if (philo->id % 2 == 0)
 		usleep(100);
+	if (philo->data->nbr_philo == 1)
+		only_one_philo(philo->data);
 	while (is_sim_running(philo->data))
 	{
 		if (!is_eating(philo))

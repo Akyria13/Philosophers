@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:19:04 by jowagner          #+#    #+#             */
-/*   Updated: 2026/01/07 20:11:35 by jowagner         ###   ########.fr       */
+/*   Updated: 2026/01/08 17:11:57 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 
 static bool	init_mutex(t_data *data)
 {
-	if (pthread_mutex_init(&data->lock_meal, NULL) != 0)
-		return (false);
-	if (pthread_mutex_init(&data->lock_die, NULL) != 0)
-		return (false);
-	if (pthread_mutex_init(&data->lock_eat, NULL) != 0)
-		return (false);
 	if (pthread_mutex_init(&data->lock_print, NULL) != 0)
 		return (false);
 	if (pthread_mutex_init(&data->lock_time, NULL) != 0)
@@ -34,7 +28,7 @@ static bool	init_mutex(t_data *data)
 bool	init_data(t_data *data, int ac, char **av)
 {
 	data->start_time = 0;
-	data->all_threads_ready = false; //Threads sync
+	data->all_threads_ready = false;
 	data->simulation_stopped = false;
 	data->nbr_philo = ft_atoi(av[1]);
 	data->time_to_die = ft_atoi(av[2]);
@@ -60,9 +54,6 @@ bool	init_philo(t_data *data, t_philo *philo)
 		philo[i].id = i + 1;
 		philo[i].last_meal = 0;
 		philo[i].meals_eaten = 0; //Condition de nb repas
-		philo[i].is_alive = true;
-		philo[i].is_eating = false;
-		philo[i].is_thinking = false;
 		philo[i].fork_left = &data->fork[i];
 		philo[i].fork_right = &data->fork[(i + 1) % data->nbr_philo];
 		if (pthread_mutex_init(&philo[i].mutex, NULL) != 0)

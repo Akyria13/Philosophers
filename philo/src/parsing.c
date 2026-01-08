@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 15:47:43 by jowagner          #+#    #+#             */
-/*   Updated: 2025/10/17 21:28:38 by jowagner         ###   ########.fr       */
+/*   Updated: 2026/01/08 17:22:08 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ bool	parsing(int ac, char **av)
 		if (!is_number(av[i]))
 		{
 			return (false);
+		}
+		if (i == 5 && ft_atoi(av[i]) == 0)
+		{
+    		printf("Nothing to eat.\n");
 		}
 		if (ft_atoi(av[i]) >= INT_MAX
 			|| ft_atoi(av[i]) <= 0)

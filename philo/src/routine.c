@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 13:24:36 by jowagner          #+#    #+#             */
-/*   Updated: 2026/01/08 16:07:57 by jowagner         ###   ########.fr       */
+/*   Updated: 2026/01/08 17:15:18 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,18 @@ bool	is_sleeping(t_philo *philo)
 
 bool	is_eating(t_philo *philo)
 {
+	int current_meals;
+
 	if (!is_sim_running(philo->data))
 		return (false);
+	if (philo->data->nbr_meal > 0)
+	{
+		pthread_mutex_lock(&philo->mutex);
+		current_meals = philo->meals_eaten;
+		pthread_mutex_unlock(&philo->mutex);
+		if (current_meals >= philo->data->nbr_meal)
+			return (false);
+	}
 	take_fork(philo);
 	print_activities(EATING, philo);
 	pthread_mutex_lock(&philo->mutex);
