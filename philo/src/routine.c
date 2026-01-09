@@ -6,21 +6,11 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 13:24:36 by jowagner          #+#    #+#             */
-/*   Updated: 2026/01/08 17:15:18 by jowagner         ###   ########.fr       */
+/*   Updated: 2026/01/09 15:14:40 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-bool	is_sim_running(t_data *data)
-{
-	bool	running;
-
-	pthread_mutex_lock(&data->lock_stop);
-	running = !data->simulation_stopped;
-    pthread_mutex_unlock(&data->lock_stop);
-	return (running);
-}
 
 void	take_fork(t_philo *philo)
 {
@@ -46,18 +36,14 @@ void	print_activities(int status, t_philo *philo)
 	bool	should_print;
 
 	pthread_mutex_lock(&philo->data->lock_stop);
-    should_print = !philo->data->simulation_stopped;
-    pthread_mutex_unlock(&philo->data->lock_stop);
-    if (!should_print && status != DEAD)
-        return ;
-		pthread_mutex_lock(&philo->data->lock_print);
+	should_print = !philo->data->simulation_stopped;
+	pthread_mutex_unlock(&philo->data->lock_stop);
+	if (!should_print && status != DEAD)
+		return ;
+	pthread_mutex_lock(&philo->data->lock_print);
 	current_time = ft_time(philo->data);
 	if (status == LEFT_FORK || status == RIGHT_FORK)
 		printf("%ld %d has taken a fork\n", current_time, philo->id);
-	// if (status == LEFT_FORK)
-	// 	printf("%ld %d has taken a LEFT fork\n", current_time, philo->id);
-	// else if (status == RIGHT_FORK)
-	// 	printf("%ld %d has taken a RIGHT fork\n", current_time, philo->id);
 	else if (status == EATING)
 		printf("%ld %d is eating\n", current_time, philo->id);
 	else if (status == SLEEPING)
@@ -74,6 +60,8 @@ bool	is_thinking(t_philo *philo)
 	if (!is_sim_running(philo->data))
 		return (false);
 	print_activities(THINKING, philo);
+	if (philo->id % 2 == 0)
+		usleep(1000);
 	return (true);
 }
 
@@ -88,7 +76,7 @@ bool	is_sleeping(t_philo *philo)
 
 bool	is_eating(t_philo *philo)
 {
-	int current_meals;
+	int	current_meals;
 
 	if (!is_sim_running(philo->data))
 		return (false);

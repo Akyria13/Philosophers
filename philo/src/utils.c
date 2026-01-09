@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 14:34:27 by jowagner          #+#    #+#             */
-/*   Updated: 2026/01/07 15:23:38 by jowagner         ###   ########.fr       */
+/*   Updated: 2026/01/09 15:20:15 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,16 @@ int	ft_atoi(char *str)
 	return (result);
 }
 
+bool	is_sim_running(t_data *data)
+{
+	bool	running;
+
+	pthread_mutex_lock(&data->lock_stop);
+	running = !data->simulation_stopped;
+	pthread_mutex_unlock(&data->lock_stop);
+	return (running);
+}
+
 long	ft_time(t_data *data)
 {
 	pthread_mutex_lock(&data->lock_time);
@@ -37,7 +47,8 @@ long	ft_time(t_data *data)
 	}
 	pthread_mutex_unlock(&data->lock_time);
 	gettimeofday(&data->tv, NULL);
-	return ((data->tv.tv_sec * 1000) + (data->tv.tv_usec / 1000) - data->start_time);
+	return ((data->tv.tv_sec * 1000)
+		+ (data->tv.tv_usec / 1000) - data->start_time);
 }
 
 bool	ft_sleep(t_data *data, int duration)

@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 16:18:48 by jowagner          #+#    #+#             */
-/*   Updated: 2026/01/08 17:04:26 by jowagner         ###   ########.fr       */
+/*   Updated: 2026/01/09 14:52:20 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static bool	check_meals(t_data *data)
 {
-	int i;
-	int philo_full;
+	int	i;
+	int	philo_full;
 
 	i = 0;
 	philo_full = 0;
@@ -32,7 +32,7 @@ static bool	check_meals(t_data *data)
 	return (philo_full == data->nbr_philo);
 }
 
-static bool check_death(t_data *data, int i)
+static bool	check_death(t_data *data, int i)
 {
 	long	current_time;
 	long	last_meal;
@@ -76,66 +76,6 @@ void	monitor(t_data *data)
 	}
 }
 
-// static void	meals_count(t_data *data)
-// {
-// 	int	i;
-// 	int	philo_full;
-
-// 	while (data->nbr_meal > 0)
-// 	{
-// 		i = 0;
-// 		philo_full = 0;
-// 		while (i < data->nbr_philo)
-// 		{
-// 			pthread_mutex_lock(&data->philo[i].mutex);
-// 			if (data->philo[i].meals_eaten >= data->nbr_meal)
-// 				philo_full++;
-// 			pthread_mutex_unlock(&data->philo[i].mutex);
-// 			i++;
-// 		}
-// 		if (philo_full == data->nbr_philo)
-// 		{
-// 			pthread_mutex_lock(&data->lock_stop);
-// 			data->simulation_stopped = true;
-// 			pthread_mutex_unlock(&data->lock_stop);
-// 			return ;
-// 		}
-// 	}
-// 	return ;
-// }
-
-// void	monitor(t_data *data)
-// {
-// 	long	current_time;
-// 	long	last_meal;
-// 	int		i;
-
-// 	while (true)
-// 	{
-// 		i = 0;
-// 		if (data->nbr_meal > 0)
-// 			meals_count(data);
-// 		while (i < data->nbr_philo)
-// 		{
-// 			current_time = ft_time(data);
-// 			pthread_mutex_lock(&data->philo[i].mutex);
-// 			last_meal = data->philo[i].last_meal;
-// 			pthread_mutex_unlock(&data->philo[i].mutex);
-// 			if (current_time - last_meal > data->time_to_die)
-// 			{
-// 				print_activities(DEAD, &data->philo[i]);
-// 				pthread_mutex_lock(&data->lock_stop);
-// 				data->simulation_stopped = true;
-// 				pthread_mutex_unlock(&data->lock_stop);
-// 				return ;
-// 			}
-// 			i++;
-// 		}
-// 		usleep(1000);
-// 	}
-// 	return ;
-// }
-
 bool	init_thread(t_data *data, t_philo *philo)
 {
 	int			i;
@@ -149,8 +89,8 @@ bool	init_thread(t_data *data, t_philo *philo)
 		i++;
 	}
 	pthread_mutex_lock(&data->lock_ready);
-    data->all_threads_ready = true;
-    pthread_mutex_unlock(&data->lock_ready);
+	data->all_threads_ready = true;
+	pthread_mutex_unlock(&data->lock_ready);
 	monitor(data);
 	i = 0;
 	while (i < data->nbr_philo)

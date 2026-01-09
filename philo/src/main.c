@@ -6,11 +6,21 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 18:32:54 by jowagner          #+#    #+#             */
-/*   Updated: 2026/01/08 17:17:24 by jowagner         ###   ########.fr       */
+/*   Updated: 2026/01/09 15:11:49 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static bool	init_everything(t_data *data, t_philo *philo, int ac, char **av)
+{
+	if (!init_data(data, ac, av)
+		|| !init_philo(data, philo)
+		|| !init_fork(data, data->fork)
+		|| !init_thread(data, philo))
+		return (false);
+	return (true);
+}
 
 static void	only_one_philo(t_data *data)
 {
@@ -25,6 +35,20 @@ static void	only_one_philo(t_data *data)
 	}
 }
 
+static bool	run_simulation(t_philo *philo)
+{
+	while (is_sim_running(philo->data))
+	{
+		if (!is_eating(philo))
+			return (false);
+		if (!is_sleeping(philo))
+			return (false);
+		if (!is_thinking(philo))
+			return (false);
+	}
+	return (true);
+}
+
 void	*routine(void *arg)
 {
 	t_philo	*philo;
@@ -36,7 +60,7 @@ void	*routine(void *arg)
 		if (philo->data->all_threads_ready)
 		{
 			pthread_mutex_unlock(&philo->data->lock_ready);
-			break;
+			break ;
 		}
 		pthread_mutex_unlock(&philo->data->lock_ready);
 		usleep(100);
@@ -45,26 +69,17 @@ void	*routine(void *arg)
 		usleep(100);
 	if (philo->data->nbr_philo == 1)
 		only_one_philo(philo->data);
-	while (is_sim_running(philo->data))
-	{
-		if (!is_eating(philo))
-			return (NULL);
-		if (!is_sleeping(philo))
-			return (NULL);
-		if (!is_thinking(philo))
-			return (NULL);
-	}
+	run_simulation(philo); //Tester si j'ai les même retours dans cette fonction que dans ma boucle en dessous.
+	// while (is_sim_running(philo->data))
+	// {
+	// 	if (!is_eating(philo))
+	// 		return (NULL);
+	// 	if (!is_sleeping(philo))
+	// 		return (NULL);
+	// 	if (!is_thinking(philo))
+	// 		return (NULL);
+	// }
 	return (NULL);
-}
-
-static bool	init_everything(t_data *data, t_philo *philo, int ac, char **av)
-{
-	if (!init_data(data, ac, av)
-		|| !init_philo(data, philo)
-		|| !init_fork(data, data->fork)
-		|| !init_thread(data, philo))
-		return (false);
-	return (true);
 }
 
 int	main(int ac, char **av)

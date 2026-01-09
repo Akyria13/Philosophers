@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:19:04 by jowagner          #+#    #+#             */
-/*   Updated: 2026/01/08 17:11:57 by jowagner         ###   ########.fr       */
+/*   Updated: 2026/01/09 14:47:58 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ bool	init_philo(t_data *data, t_philo *philo)
 		philo[i].data = data;
 		philo[i].id = i + 1;
 		philo[i].last_meal = 0;
-		philo[i].meals_eaten = 0; //Condition de nb repas
+		philo[i].meals_eaten = 0;
 		philo[i].fork_left = &data->fork[i];
 		philo[i].fork_right = &data->fork[(i + 1) % data->nbr_philo];
 		if (pthread_mutex_init(&philo[i].mutex, NULL) != 0)
