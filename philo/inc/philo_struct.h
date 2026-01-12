@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 19:07:46 by jowagner          #+#    #+#             */
-/*   Updated: 2026/01/12 17:30:07 by jowagner         ###   ########.fr       */
+/*   Updated: 2026/01/12 18:44:14 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ enum	e_status
 typedef struct s_fork
 {
 	int				id;
-	bool			available;
 	pthread_mutex_t	mutex;
 }				t_fork;
 
