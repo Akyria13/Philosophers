@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 13:24:36 by jowagner          #+#    #+#             */
-/*   Updated: 2026/01/09 15:14:40 by jowagner         ###   ########.fr       */
+/*   Updated: 2026/01/12 18:20:19 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,13 @@ bool	is_thinking(t_philo *philo)
 	if (!is_sim_running(philo->data))
 		return (false);
 	print_activities(THINKING, philo);
-	if (philo->id % 2 == 0)
-		usleep(1000);
+	if (philo->data->nbr_philo % 2 == 1)
+		usleep((philo->data->time_to_eat * 1000) / 2);
+	else
+	{
+		if (philo->id % 2 == 0)
+			usleep(1000);
+	}
 	return (true);
 }
 

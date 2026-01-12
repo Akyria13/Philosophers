@@ -6,7 +6,7 @@
 /*   By: jowagner <jowagner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 18:32:54 by jowagner          #+#    #+#             */
-/*   Updated: 2026/01/09 15:11:49 by jowagner         ###   ########.fr       */
+/*   Updated: 2026/01/12 18:20:09 by jowagner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,7 @@ void	*routine(void *arg)
 		usleep(100);
 	if (philo->data->nbr_philo == 1)
 		only_one_philo(philo->data);
-	run_simulation(philo); //Tester si j'ai les même retours dans cette fonction que dans ma boucle en dessous.
-	// while (is_sim_running(philo->data))
-	// {
-	// 	if (!is_eating(philo))
-	// 		return (NULL);
-	// 	if (!is_sleeping(philo))
-	// 		return (NULL);
-	// 	if (!is_thinking(philo))
-	// 		return (NULL);
-	// }
+	run_simulation(philo);
 	return (NULL);
 }
 
